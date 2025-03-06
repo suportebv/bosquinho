@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<< Bosques da Vila >> Bem vindo ao nosso assistente virtual do nosso condomínio.">
+    <title>Bosques da Vila - Assistente Bosquinho</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding-top: 80px; 
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #D97A28;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        header img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 22px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .bot-image {
+            width: 300px;
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .contact-info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .contact-info a {
+            text-decoration: none;
+            color: #D97A28;
+            font-weight: bold;
+        }
+        .chatbot-button {
+            background-color: #D97A28;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .chatbot-button:hover {
+            background-color: #b9611e;
+        }
+		
+		
+
+        #openChatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #D97A28;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        #openChatbot:hover {
+            background-color: #b86522;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 860px;
+            max-width: 90%;
+            height: 80vh;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Ajuste do chatbot */
+        #chatbotContainer {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        zapier-interfaces-chatbot-embed {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .modal-content {
+                width: 95%;
+                height: 85vh;
+            }
+        }
+    </style>
+
+	<link rel="icon" type="image/png" href="favicon.jpg">
+</head>
+<body>
+    <header>
+        <img src="bv-logo.jpg" alt="Logo Bosques da Vila">
+        <h1>Condomínio Bosques da Vila</h1>
+    </header>
+    <div class="container">
+        <img src="bosquinho.jpg" alt="Bosquinho, o assistente virtual" class="bot-image">
+        <p>Bem-vindo ao assistente virtual do nosso condomínio Bosques da Vila! Como podemos te ajudar?</p>
+	    
+        <button class="chatbot-button" id="openChatbot">Falar com o Bosquinho</button>
+        <div class="contact-info">
+            <p>📞 <strong>Administração:</strong> <a href="https://api.whatsapp.com/send?phone=5511995404209" target="_blank">(11) 99540-4209</a></p>
+            <p>📞 <strong>Síndico:</strong> <a href="https://api.whatsapp.com/send?phone=5511975478151" target="_blank">(11) 97547-8151</a></p>
+            <p>✉️ <strong>Email:</strong> <a href="mailto:sindico@bosquesdavila.com.br">sindico@bosquesdavila.com.br</a></p>
+        </div>
+    </div>
+    <!-- <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script> -->
+    <!-- <zapier-interfaces-chatbot-embed is-popup='false' chatbot-id='cm74tco33000kvfc37adczfwo' height='600px' width='860px'></zapier-interfaces-chatbot-embed> -->
+	
+	<div id="chatbotModal" class="modal">
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<div id="chatbotContainer"></div>
+	</div>
+	
+	<!-- Modal de Termos de Uso -->
+	<div id="termsModal" class="modal">
+		<div class="modal-content">
+			<span class="close" id="closeTerms">&times;</span>
+			<h2>Termos de Uso e Consentimento</h2>
+			<div id="termsText" style="overflow-y: auto; max-height: 60vh; padding: 15px; text-align: left;">
+				<p>Termos de Uso e Consentimento – Bosquinho</p>
+				<p></p>
+				<p>Bem-vindo ao Bosquinho, o assistente virtual do Condomínio Bosques da Vila! Antes de utilizar este serviço, leia atentamente os termos abaixo.</p>
+				<p>1. Informações Públicas e Propósito</p>
+				<p></p>
+				<p>O Bosquinho é um chatbot desenvolvido para auxiliar os moradores, fornecendo informações gerais sobre o condomínio. As informações disponibilizadas são públicas e não substituem os canais oficiais da administração.</p>
+				<p>2. Uso Responsável</p>
+				<p></p>
+				<p>Ao utilizar o Bosquinho, você concorda em:</p>
+				<p></p>
+				<p>	Utilizar o chatbot de forma respeitosa e adequada.</p>
+				<p>	Não disseminar informações falsas ou inadequadas com base nas respostas fornecidas.</p>
+				<p>	Compreender que o chatbot não substitui os canais formais para demandas administrativas ou emergências.</p>
+				<p></p>
+				<p>3. Limitação de Responsabilidade</p>
+				<p></p>
+				<p>	As respostas do Bosquinho são geradas automaticamente com base nas informações cadastradas e podem conter imprecisões.</p>
+				<p>	O Bosquinho não realiza transações financeiras, registro de ocorrências formais ou atendimentos emergenciais.</p>
+				<p>	O condomínio não se responsabiliza por decisões tomadas com base nas informações fornecidas pelo chatbot.</p>
+				<p></p>
+				<p>4. Privacidade e Segurança</p>
+				<p></p>
+				<p>	O Bosquinho não armazena dados pessoais dos moradores.</p>
+				<p>	Nenhuma informação sigilosa será solicitada pelo chatbot.</p>
+				<p>	Caso precise de suporte personalizado, entre em contato com a administração pelos canais oficiais.</p>
+				<p></p>
+				<p>5. Canais Oficiais da Administração</p>
+				<p></p>
+				<p>Caso precise de assistência direta, utilize os contatos oficiais:</p>
+				<p>📞 WhatsApp da Administração: <a data-start="1768" data-end="1843" rel="noopener" target="_new" href="https://api.whatsapp.com/send?phone=5511995404209">Clique aqui para falar</a></p>
+				<p>📞 WhatsApp do Síndico: <a data-start="1874" data-end="1949" rel="noopener" target="_new" href="https://api.whatsapp.com/send?phone=5511975478151">Clique aqui para falar</a></p>
+				<p>📧 E-mail do Síndico: sindico@bosquesdavila.com.br</p>
+				<p></p>
+				<p>📌 Ao continuar utilizando o Bosquinho, você declara estar ciente e de acordo com os termos acima.</p>
+				<p style="font-weight: bold;">Ao clicar em "Li e Concordo", você aceita os termos e poderá utilizar o Bosquinho.</p>
+			</div>
+			<div style="text-align: center; padding: 15px;">
+				<button id="agreeButton" class="chatbot-button" >Li e Concordo</button>
+				<button id="disagreeButton" class="chatbot-button" style="background-color: #888;">Li e Não Concordo</button>				
+			</div>
+		</div>
+	</div>
+
+
+		
+	<script>
+		document.getElementById("openChatbot").addEventListener("click", function() {
+			let termsAccepted = localStorage.getItem("termsAccepted");
+
+			if (!termsAccepted) {
+				document.getElementById("termsModal").style.display = "flex";
+			} else {
+				openChatbotModal();
+			}
+		});
+
+		document.getElementById("agreeButton").addEventListener("click", function() {
+			localStorage.setItem("termsAccepted", "true");
+			document.getElementById("termsModal").style.display = "none";
+			openChatbotModal();
+		});
+
+		document.getElementById("disagreeButton").addEventListener("click", function() {
+			alert("Você optou por não utilizar o Bosquinho.");
+			document.getElementById("termsModal").style.display = "none";
+		});
+
+		document.getElementById("closeTerms").addEventListener("click", function() {
+			document.getElementById("termsModal").style.display = "none";
+		});
+
+		document.getElementById("closeChatbot").addEventListener("click", function() {
+			document.getElementById("chatbotModal").style.display = "none";
+		});
+
+		function openChatbotModal() {
+			document.getElementById("chatbotModal").style.display = "flex";
+
+			let chatbotContainer = document.getElementById("chatbotContainer");
+
+			if (!chatbotContainer.innerHTML.trim()) {
+				let script = document.createElement("script");
+				script.type = "module";
+				script.src = "https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js";
+				document.body.appendChild(script);
+
+				let chatbot = document.createElement("zapier-interfaces-chatbot-embed");
+				chatbot.setAttribute("is-popup", "false");
+				chatbot.setAttribute("chatbot-id", "cm74tco33000kvfc37adczfwo");
+
+				chatbotContainer.appendChild(chatbot);
+			}
+		}
+
+		// Habilitar botão "Li e Concordo" apenas ao rolar até o final
+		let termsText = document.getElementById("termsText");
+		let agreeButton = document.getElementById("agreeButton");
+
+		termsText.addEventListener("scroll", function() {
+			if (termsText.scrollHeight - termsText.scrollTop <= termsText.clientHeight + 5) {
+				agreeButton.style.display = "inline-block";
+			}
+		});
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var openChatbotButton = document.getElementById("openChatbot");
+			var chatbotModal = document.getElementById("chatbotModal");
+			var closeButtons = document.querySelectorAll(".close");
+			const termsText = document.getElementById("termsText");
+			const agreeButton = document.getElementById("agreeButton");
+
+			if (termsText && agreeButton) {
+				termsText.addEventListener("scroll", function () {
+					// Verifica se o usuário rolou até o final do texto
+					if (termsText.scrollTop + termsText.clientHeight >= termsText.scrollHeight) {
+						agreeButton.disabled = false; // Habilita o botão
+					}
+				});
+			}
+
+			// Abre o modal ao clicar no botão
+			openChatbotButton.addEventListener("click", function () {
+				chatbotModal.style.display = "flex";
+			});
+
+			// Fecha o modal ao clicar no botão de fechar
+			closeButtons.forEach(function (btn) {
+				btn.addEventListener("click", function () {
+					chatbotModal.style.display = "none";
+				});
+			});
+
+			// Fecha o modal ao clicar fora dele
+			window.addEventListener("click", function (event) {
+				if (event.target === chatbotModal) {
+					chatbotModal.style.display = "none";
+				}
+			});
+		});
+	</script>
+</body>
+</html>
